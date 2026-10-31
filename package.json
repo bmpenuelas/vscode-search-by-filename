@@ -1,0 +1,162 @@
+{
+  "name": "search-by-filename",
+  "displayName": "Search by filename - find files",
+  "description": "Find files searching by filename in VSCode. Supports regexp, including ignored files, case matching...",
+  "version": "1.1.0",
+  "publisher": "bmpenuelas",
+  "homepage": "https://github.com/bmpenuelas/vscode-search-by-filename",
+  "bugs": {
+    "email": "bmpenuelas@gmail.com",
+    "url": "https://github.com/bmpenuelas/vscode-search-by-filename/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bmpenuelas/vscode-search-by-filename.git"
+  },
+  "license": "MIT",
+  "icon": "resources/icon.png",
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "searchByFilename.quickSearch",
+        "title": "Quick Search",
+        "category": "Search by filename"
+      },
+      {
+        "command": "searchByFilename.focusSearch",
+        "title": "Focus Search",
+        "category": "Search by filename"
+      },
+      {
+        "command": "searchByFilename.refreshIndex",
+        "title": "Refresh Index",
+        "category": "Search by filename",
+        "icon": "$(refresh)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "searchByFilename.quickSearch",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "searchByFilename",
+          "title": "Search by filename",
+          "icon": "resources/search.svg"
+        }
+      ]
+    },
+    "views": {
+      "searchByFilename": [
+        {
+          "type": "webview",
+          "id": "searchByFilename.sidebar",
+          "name": "Search by filename"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "searchByFilename.refreshIndex",
+          "when": "view == searchByFilename.sidebar",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Search by filename",
+      "properties": {
+        "searchByFilename.ignoreCase": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ignore filename case. Explicit settings take precedence over saved toggle state on activation/configuration changes."
+        },
+        "searchByFilename.useRegex": {
+          "type": "boolean",
+          "default": false,
+          "description": "Interpret the query as a JavaScript regular expression."
+        },
+        "searchByFilename.includeIgnored": {
+          "type": "boolean",
+          "default": false,
+          "description": "Discover ignored and excluded files on demand."
+        },
+        "searchByFilename.openInPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open results in preview editors."
+        },
+        "searchByFilename.maxResults": {
+          "type": "integer",
+          "default": 200,
+          "minimum": 1,
+          "maximum": 2000,
+          "description": "Initial display limit. More results can be requested up to 2000."
+        },
+        "searchByFilename.maxIndexedFiles": {
+          "type": "integer",
+          "default": 500000,
+          "minimum": 1000,
+          "maximum": 2000000,
+          "description": "Maximum cached files across all roots. Reaching this limit is reported as incomplete indexing."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node scripts/build.mjs && tsc --noEmit",
+    "watch": "node scripts/build.mjs --watch",
+    "lint": "eslint src media scripts",
+    "test": "npm run compile && node --test dist/test/*.test.js",
+    "test:integration": "npm run compile && node scripts/integration.mjs",
+    "test:debug": "npm run compile && node scripts/debug-smoke.mjs",
+    "test:ui": "npm run compile && node scripts/test-sidebar.mjs",
+    "package": "npm run compile && vsce package --no-dependencies",
+    "benchmark": "npm run compile && node scripts/benchmark.mjs",
+    "vscode:prepublish": "npm run compile",
+    "publish:marketplace": "vsce package --no-dependencies && vsce publish --no-dependencies",
+    "publish:openvsx": "bash -c \"read -p 'Enter packaged filename: ' filename && read -sp 'Enter openvsx token: ' token && echo && npx ovsx publish \\\"$filename\\\" -p \\\"$token\\\"\"",
+    "publish": "npm version minor --no-git-tag-version && npm run publish:marketplace && npm run publish:openvsx"
+  },
+  "dependencies": {
+    "ignore": "^7.0.5",
+    "picomatch": "^4.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^22.19.0",
+    "@types/picomatch": "^4.0.2",
+    "@types/vscode": "1.109.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.7.0",
+    "esbuild": "^0.25.12",
+    "eslint": "^9.39.0",
+    "playwright-core": "^1.64.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
+  }
+}

@@ -1,0 +1,16 @@
+**/*
+!dist/extension.js
+!dist/search/worker.js
+!media/sidebar.js
+!media/sidebar.css
+!media/case-sensitive.svg
+!media/regex.svg
+!media/circle-slash.svg
+!resources/search.svg
+!resources/icon.png
+!README.md
+!DEVELOPMENT.md
+!CHANGELOG.md
+!LICENSE
+!THIRD_PARTY_NOTICES.md
+!package.json

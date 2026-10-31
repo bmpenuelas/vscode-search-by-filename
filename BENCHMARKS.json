@@ -1,0 +1,53 @@
+{
+  "node": "v24.21.0",
+  "platform": "win32",
+  "arch": "x64",
+  "date": "2026-10-31T12:16:29.302Z",
+  "note": "Synthetic metadata construction (not filesystem I/O). Search includes bounded ranking; median of 5 warmed runs, top 200. Heap delta is approximate, without forced GC; excludes URI objects and worker mirror.",
+  "results": [
+    {
+      "files": 1000,
+      "constructMs": 1.21,
+      "insert1000Ms": 1.07,
+      "delete1000Ms": 0.12,
+      "literalMs": 0.26,
+      "caseSensitiveMs": 0.13,
+      "regexMs": 0.12,
+      "rankingTop200Ms": 0.54,
+      "approxHeapMiB": 0.52
+    },
+    {
+      "files": 10000,
+      "constructMs": 10.22,
+      "insert1000Ms": 0.12,
+      "delete1000Ms": 0.05,
+      "literalMs": 2.41,
+      "caseSensitiveMs": 1.05,
+      "regexMs": 1.17,
+      "rankingTop200Ms": 0.58,
+      "approxHeapMiB": 3.19
+    },
+    {
+      "files": 100000,
+      "constructMs": 129.29,
+      "insert1000Ms": 0.57,
+      "delete1000Ms": 0.07,
+      "literalMs": 9.24,
+      "caseSensitiveMs": 8.46,
+      "regexMs": 7.85,
+      "rankingTop200Ms": 10.92,
+      "approxHeapMiB": 39.24
+    },
+    {
+      "files": 500000,
+      "constructMs": 818.11,
+      "insert1000Ms": 0.81,
+      "delete1000Ms": 0.08,
+      "literalMs": 30.66,
+      "caseSensitiveMs": 28.07,
+      "regexMs": 26.56,
+      "rankingTop200Ms": 22.4,
+      "approxHeapMiB": 180.5
+    }
+  ]
+}
